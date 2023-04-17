@@ -64,7 +64,6 @@ public class ProductResource {
 
     @DELETE
     @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
     public void deleteProduct(@PathParam("id") Integer id) {
         productService.deleteProduct(id);
     }

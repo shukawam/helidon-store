@@ -1,7 +1,6 @@
 package me.shukawam.product.exception;
 
 import io.helidon.common.http.NotFoundException;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
