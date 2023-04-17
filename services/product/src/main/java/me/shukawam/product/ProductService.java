@@ -8,6 +8,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import me.shukawam.product.data.ProductRequest;
 
 @ApplicationScoped
 public class ProductService {
@@ -44,8 +45,10 @@ public class ProductService {
     }
 
     @Transactional
-    public Product updateProduct(Product product) {
-        var updatedProduct = entityManager.merge(product);
+    public Product updateProduct(ProductRequest productRequest) {
+        var oldProduct = getProductById(productRequest.id());
+        var newProduct = updateProductDetails(productRequest, oldProduct);
+        var updatedProduct = entityManager.merge(newProduct);
         logger.info(updatedProduct.toString());
         return updatedProduct;
     }
@@ -55,6 +58,16 @@ public class ProductService {
         var product = getProductById(id);
         entityManager.remove(product);
         logger.info(String.format("Delete product: %s is completed.", id));
+    }
+
+    private Product updateProductDetails(ProductRequest productRequest, Product beforeProduct) {
+        // FIXME: Using BeanUtils, etc.
+        beforeProduct.setName(productRequest.name());
+        beforeProduct.setDescription(productRequest.description());
+        beforeProduct.setPrice(productRequest.price());
+        beforeProduct.setQuantity(productRequest.quantity());
+        var updateProduct = beforeProduct;
+        return updateProduct;
     }
 
 }

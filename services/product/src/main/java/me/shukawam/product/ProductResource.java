@@ -1,5 +1,6 @@
 package me.shukawam.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.inject.Inject;
@@ -12,6 +13,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import me.shukawam.product.data.ProductRequest;
+import me.shukawam.product.data.ProductResponse;
 
 @Path("products")
 public class ProductResource {
@@ -25,15 +28,23 @@ public class ProductResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public List<ProductResponse> getAllProducts() {
+        var products = productService.getAllProducts();
+        var productResponses = new ArrayList<ProductResponse>();
+        products.stream().forEach(product -> {
+            productResponses.add(new ProductResponse(product.getId(), product.getName(), product.getDescription(),
+                    product.getPrice(), product.getQuantity()));
+        });
+        return productResponses;
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Product getProductById(@PathParam("id") Integer id) {
-        return productService.getProductById(id);
+    public ProductResponse getProductById(@PathParam("id") Integer id) {
+        var product = productService.getProductById(id);
+        return new ProductResponse(product.getId(), product.getName(), product.getDescription(), product.getPrice(),
+                product.getQuantity());
     }
 
     @POST
@@ -45,8 +56,10 @@ public class ProductResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Product updateProduct(Product product) {
-        return productService.updateProduct(product);
+    public ProductResponse updateProduct(ProductRequest productRequest) {
+        var product = productService.updateProduct(productRequest);
+        return new ProductResponse(product.getId(), product.getName(), product.getDescription(), product.getPrice(),
+                product.getQuantity());
     }
 
     @DELETE
