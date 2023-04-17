@@ -28,7 +28,7 @@ Content-Type: application/json
     "name": "Product Z",
     "description": "Description for Product Z.",
     "price": 9999,
-    "imageUrl": "https://example.com/image_z.jpg"
+    "quantity": 99
 }
 
 ### Update Product
@@ -40,7 +40,7 @@ Content-Type: application/json
     "name": "Product ZZZ",
     "description": "Description for Product ZZZ.",
     "price": 9999,
-    "imageUrl": "https://example.com/image_zzz.jpg"
+    "quantity": 999999
 }
 
 ### Delete Product
