@@ -1,0 +1,10 @@
+{
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.test.config": {
+        "vmArgs": [
+            "--enable-preview",
+            "-Dconfig.profile=local"
+        ]
+    }
+}
