@@ -60,13 +60,13 @@ public class ProductService {
         logger.info(String.format("Delete product: %s is completed.", id));
     }
 
-    private Product updateProductDetails(ProductRequest productRequest, Product beforeProduct) {
+    private Product updateProductDetails(ProductRequest productRequest, Product oldProduct) {
         // FIXME: Using BeanUtils, etc.
-        beforeProduct.setName(productRequest.name());
-        beforeProduct.setDescription(productRequest.description());
-        beforeProduct.setPrice(productRequest.price());
-        beforeProduct.setQuantity(productRequest.quantity());
-        var updateProduct = beforeProduct;
+        oldProduct.setName(productRequest.name());
+        oldProduct.setDescription(productRequest.description());
+        oldProduct.setPrice(productRequest.price());
+        oldProduct.setQuantity(productRequest.quantity());
+        var updateProduct = oldProduct;
         return updateProduct;
     }
 
