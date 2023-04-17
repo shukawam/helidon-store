@@ -14,6 +14,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/product
     steps:
       - name: Check out sources
         uses: actions/checkout@v3
@@ -23,7 +26,7 @@ jobs:
         with:
           distribution: "oracle"
           java-version: "19"
-      
+
       - name: Validate format
         run: |
           ./mvnw formatter:validate
