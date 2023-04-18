@@ -71,7 +71,7 @@ DECLARE
 BEGIN
   FOR i IN 1..30 LOOP
     INSERT INTO Orders (id, customer_id, total_price, order_date, status)
-    VALUES (i, MOD(i, 3) + 1, 1000.00 + (i * 100), SYSTIMESTAMP - i, CASE WHEN MOD(i, 3) = 0 THEN 'processing' WHEN MOD(i, 3) = 1 THEN 'shipped' ELSE 'delivered' END);
+    VALUES (i, MOD(i, 3) + 1, 1000.00 + (i * 100), SYSTIMESTAMP - i, CASE WHEN MOD(i, 3) = 0 THEN 'PROCESSING' WHEN MOD(i, 3) = 1 THEN 'SHIPPED' ELSE 'DELIVERED' END);
   END LOOP;
 END;
 /
@@ -97,7 +97,7 @@ DECLARE
 BEGIN
   FOR i IN 1..30 LOOP
     INSERT INTO Payments (id, order_id, payment_method, amount, payment_date)
-    VALUES (i, i, CASE WHEN MOD(i, 2) = 0 THEN 'credit card' ELSE 'paypal' END, 1000.00 + (i * 100), SYSTIMESTAMP - i);
+    VALUES (i, i, CASE WHEN MOD(i, 2) = 0 THEN 'CREDIT_CARD' ELSE 'PAYPAL' END, 1000.00 + (i * 100), SYSTIMESTAMP - i);
   END LOOP;
 END;
 /
