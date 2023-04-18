@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import me.shukawam.order.data.OrderStatus;
 
@@ -38,7 +39,13 @@ public class Order {
     public void prePersist() {
         var now = new Timestamp(System.currentTimeMillis());
         setOrderDate(now);
-        setStatus(OrderStatus.processing);
+        setStatus(OrderStatus.PROCESSING);
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        var now = new Timestamp(System.currentTimeMillis());
+        setOrderDate(now);
     }
 
     public Integer getId() {
