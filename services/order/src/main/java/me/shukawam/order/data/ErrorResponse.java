@@ -1,4 +1,4 @@
-package me.shukawam.product.exception;
+package me.shukawam.order.data;
 
 import jakarta.ws.rs.core.Response.Status;
 
