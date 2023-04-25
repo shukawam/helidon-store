@@ -1,0 +1,25 @@
+@localhost = http://localhost
+@front = 3000
+
+GET {{localhost}}:{{front}}/api/products HTTP/1.1
+
+###
+GET {{localhost}}:{{front}}/api/products/1 HTTP/1.1
+
+###
+POST {{localhost}}:{{front}}/api/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 999,
+    "name": "Product Z",
+    "description": "Description for Product Z.",
+    "price": 9999,
+    "quantity": 99
+}
+
+###
+PUT {{localhost}}:{{front}}/api/products HTTP/1.1
+
+###
+DELETE {{localhost}}:{{front}}/api/products/1 HTTP/1.1

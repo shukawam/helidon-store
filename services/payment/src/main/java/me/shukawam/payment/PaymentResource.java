@@ -13,6 +13,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 import me.shukawam.payment.data.PaymentRequest;
 import me.shukawam.payment.data.PaymentResponse;
 
@@ -27,23 +29,25 @@ public class PaymentResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<PaymentResponse> getAllPayments() {
+    public Response getAllPayments() {
         var payments = paymentService.getAllPayments();
         var paymentResponses = new ArrayList<PaymentResponse>();
         payments.forEach(payment -> {
             paymentResponses.add(new PaymentResponse(payment.getId(), payment.getOrderId(), payment.getPaymentMethod(),
                     payment.getAmount(), payment.getPaymentDate()));
         });
-        return paymentResponses;
+        return Response.status(Status.OK).entity(paymentResponses).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public PaymentResponse getPaymentById(@PathParam("id") Integer id) {
+    public Response getPaymentById(@PathParam("id") Integer id) {
         var payment = paymentService.getPaymentById(id);
-        return new PaymentResponse(payment.getId(), payment.getOrderId(), payment.getPaymentMethod(),
-                payment.getAmount(), payment.getPaymentDate());
+        return Response.status(Status.OK)
+                .entity(new PaymentResponse(payment.getId(), payment.getOrderId(), payment.getPaymentMethod(),
+                        payment.getAmount(), payment.getPaymentDate()))
+                .build();
     }
 
     @POST
@@ -55,10 +59,12 @@ public class PaymentResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public PaymentResponse updatePayment(PaymentRequest paymentRequest) {
+    public Response updatePayment(PaymentRequest paymentRequest) {
         var payment = paymentService.updatePayment(paymentRequest);
-        return new PaymentResponse(payment.getId(), payment.getOrderId(), payment.getPaymentMethod(),
-                payment.getAmount(), payment.getPaymentDate());
+        return Response.status(Status.OK)
+                .entity(new PaymentResponse(payment.getId(), payment.getOrderId(), payment.getPaymentMethod(),
+                        payment.getAmount(), payment.getPaymentDate()))
+                .build();
     }
 
     @DELETE

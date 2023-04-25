@@ -13,6 +13,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 import me.shukawam.cart.data.CartRequest;
 import me.shukawam.cart.data.CartResponse;
 
@@ -27,21 +29,22 @@ public class CartResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CartResponse> getAllCarts() {
+    public Response getAllCarts() {
         var carts = cartService.getAllCarts();
         var cartResponses = new ArrayList<CartResponse>();
         carts.forEach(cart -> {
             cartResponses.add(new CartResponse(cart.getId(), cart.getCustomerId(), cart.getCreatedAt()));
         });
-        return cartResponses;
+        return Response.status(Status.OK).entity(cartResponses).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CartResponse getCartById(@PathParam("id") Integer id) {
+    public Response getCartById(@PathParam("id") Integer id) {
         var cart = cartService.getCartById(id);
-        return new CartResponse(cart.getId(), cart.getCustomerId(), cart.getCreatedAt());
+        return Response.status(Status.OK)
+                .entity(new CartResponse(cart.getId(), cart.getCustomerId(), cart.getCreatedAt())).build();
     }
 
     @POST
@@ -53,9 +56,10 @@ public class CartResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public CartResponse updateCart(CartRequest cartRequest) {
+    public Response updateCart(CartRequest cartRequest) {
         var cart = cartService.updateCart(cartRequest);
-        return new CartResponse(cart.getId(), cart.getCustomerId(), cart.getCreatedAt());
+        return Response.status(Status.OK)
+                .entity(new CartResponse(cart.getId(), cart.getCustomerId(), cart.getCreatedAt())).build();
     }
 
     @DELETE

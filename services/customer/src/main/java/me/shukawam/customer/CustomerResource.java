@@ -13,6 +13,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 import me.shukawam.customer.data.CustomerRequest;
 import me.shukawam.customer.data.CustomerResponse;
 
@@ -28,23 +30,25 @@ public class CustomerResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CustomerResponse> getAllCustomer() {
+    public Response getAllCustomer() {
         var customers = customerService.getAllCustomers();
         var customerResponses = new ArrayList<CustomerResponse>();
         customers.stream().forEach(customer -> {
             customerResponses.add(new CustomerResponse(customer.getId(), customer.getFirstName(),
                     customer.getLastName(), customer.getEmail(), customer.getPhoneNumber()));
         });
-        return customerResponses;
+        return Response.status(Status.OK).entity(customerResponses).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public CustomerResponse getCustomerById(@PathParam("id") Integer id) {
+    public Response getCustomerById(@PathParam("id") Integer id) {
         var customer = customerService.getCustomerById(id);
-        return new CustomerResponse(customer.getId(), customer.getFirstName(), customer.getLastName(),
-                customer.getEmail(), customer.getPhoneNumber());
+        return Response.status(Status.OK)
+                .entity(new CustomerResponse(customer.getId(), customer.getFirstName(), customer.getLastName(),
+                        customer.getEmail(), customer.getPhoneNumber()))
+                .build();
     }
 
     @POST
@@ -56,10 +60,12 @@ public class CustomerResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public CustomerResponse updateCustomer(CustomerRequest customerRequest) {
+    public Response updateCustomer(CustomerRequest customerRequest) {
         var customer = customerService.updateCustomer(customerRequest);
-        return new CustomerResponse(customer.getId(), customer.getFirstName(), customer.getLastName(),
-                customer.getEmail(), customer.getPhoneNumber());
+        return Response.status(Status.OK)
+                .entity(new CustomerResponse(customer.getId(), customer.getFirstName(), customer.getLastName(),
+                        customer.getEmail(), customer.getPhoneNumber()))
+                .build();
     }
 
     @DELETE

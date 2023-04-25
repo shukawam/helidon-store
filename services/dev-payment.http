@@ -1,0 +1,42 @@
+@localhost = http://localhost
+@payment = 8083
+
+
+#####
+# Payment
+#####
+GET {{localhost}}:{{payment}}/health HTTP/1.1
+
+###
+GET {{localhost}}:{{payment}}/payments HTTP/1.1
+
+###
+GET {{localhost}}:{{payment}}/payments/1 HTTP/1.1
+
+###
+GET {{localhost}}:{{payment}}/payments/999 HTTP/1.1
+
+###
+POST {{localhost}}:{{payment}}/payments HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 999,
+    "orderId": 1,
+    "paymentMethod": "PAYPAL",
+    "amount": 999
+}
+
+###
+PUT {{localhost}}:{{payment}}/payments HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 999,
+    "orderId": 1,
+    "paymentMethod": "PAYPAL",
+    "amount": 999999
+}
+
+###
+DELETE {{localhost}}:{{payment}}/payments/999 HTTP/1.1

@@ -13,6 +13,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
 import me.shukawam.order.data.OrderRequest;
 import me.shukawam.order.data.OrderResponse;
 
@@ -28,23 +30,26 @@ public class OrderResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<OrderResponse> getAllOrders() {
+    public Response getAllOrders() {
         var orders = orderService.getAllOrders();
         var orderResponses = new ArrayList<OrderResponse>();
         orders.stream().forEach(order -> {
             orderResponses.add(new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(),
                     order.getOrderDate(), order.getStatus()));
         });
-        return orderResponses;
+        return Response.status(Status.OK).entity(orderResponses).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public OrderResponse getOrderById(@PathParam("id") Integer id) {
+    public Response getOrderById(@PathParam("id") Integer id) {
         var order = orderService.getOrderById(id);
-        return new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(), order.getOrderDate(),
-                order.getStatus());
+        return Response.status(Status.OK)
+                .entity(new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(),
+                        order.getOrderDate(),
+                        order.getStatus()))
+                .build();
     }
 
     @POST
@@ -55,10 +60,13 @@ public class OrderResource {
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public OrderResponse updateOrder(OrderRequest orderRequest) {
+    public Response updateOrder(OrderRequest orderRequest) {
         var order = orderService.updateOrder(orderRequest);
-        return new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(), order.getOrderDate(),
-                order.getStatus());
+        return Response.status(Status.OK)
+                .entity(new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(),
+                        order.getOrderDate(),
+                        order.getStatus()))
+                .build();
     }
 
     @DELETE
