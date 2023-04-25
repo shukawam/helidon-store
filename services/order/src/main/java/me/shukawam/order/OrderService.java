@@ -12,7 +12,7 @@ import me.shukawam.order.data.OrderRequest;
 
 @ApplicationScoped
 public class OrderService {
-    
+
     private static final Logger logger = Logger.getLogger(OrderService.class.getName());
 
     @PersistenceContext(unitName = "atp")
@@ -67,5 +67,5 @@ public class OrderService {
         entityManager.remove(order);
         logger.info(String.format("Delete order: %s is completed.", id));
     }
-    
+
 }

@@ -32,7 +32,8 @@ public class OrderResource {
         var orders = orderService.getAllOrders();
         var orderResponses = new ArrayList<OrderResponse>();
         orders.stream().forEach(order -> {
-            orderResponses.add(new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(), order.getOrderDate(), order.getStatus()));
+            orderResponses.add(new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(),
+                    order.getOrderDate(), order.getStatus()));
         });
         return orderResponses;
     }
@@ -42,7 +43,8 @@ public class OrderResource {
     @Produces(MediaType.APPLICATION_JSON)
     public OrderResponse getOrderById(@PathParam("id") Integer id) {
         var order = orderService.getOrderById(id);
-        return new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(), order.getOrderDate(), order.getStatus());
+        return new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(), order.getOrderDate(),
+                order.getStatus());
     }
 
     @POST
@@ -55,7 +57,8 @@ public class OrderResource {
     @Produces(MediaType.APPLICATION_JSON)
     public OrderResponse updateOrder(OrderRequest orderRequest) {
         var order = orderService.updateOrder(orderRequest);
-        return new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(), order.getOrderDate(), order.getStatus());
+        return new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(), order.getOrderDate(),
+                order.getStatus());
     }
 
     @DELETE
@@ -63,5 +66,5 @@ public class OrderResource {
     public void deleteOrder(@PathParam("id") Integer id) {
         orderService.deleteOrder(id);
     }
-    
+
 }
