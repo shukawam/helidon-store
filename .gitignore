@@ -1,3 +1,4 @@
 wallet/
 generate_and_rotate_wallet.sh
 *.zip
+*.http
