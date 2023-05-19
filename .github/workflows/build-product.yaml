@@ -21,11 +21,11 @@ jobs:
       - name: Check out sources
         uses: actions/checkout@v3
 
-      - name: Set up JDK 19
+      - name: Set up JDK 20
         uses: actions/setup-java@v3
         with:
-          distribution: "oracle"
-          java-version: "19"
+          distribution: "temurin"
+          java-version: "20"
 
       - name: Validate format
         run: |
