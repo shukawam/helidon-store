@@ -45,10 +45,8 @@ public class CustomerResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCustomerById(@PathParam("id") Integer id) {
         var customer = customerService.getCustomerById(id);
-        return Response.status(Status.OK)
-                .entity(new CustomerResponse(customer.getId(), customer.getFirstName(), customer.getLastName(),
-                        customer.getEmail(), customer.getPhoneNumber()))
-                .build();
+        return Response.status(Status.OK).entity(new CustomerResponse(customer.getId(), customer.getFirstName(),
+                customer.getLastName(), customer.getEmail(), customer.getPhoneNumber())).build();
     }
 
     @POST
@@ -62,10 +60,8 @@ public class CustomerResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateCustomer(CustomerRequest customerRequest) {
         var customer = customerService.updateCustomer(customerRequest);
-        return Response.status(Status.OK)
-                .entity(new CustomerResponse(customer.getId(), customer.getFirstName(), customer.getLastName(),
-                        customer.getEmail(), customer.getPhoneNumber()))
-                .build();
+        return Response.status(Status.OK).entity(new CustomerResponse(customer.getId(), customer.getFirstName(),
+                customer.getLastName(), customer.getEmail(), customer.getPhoneNumber())).build();
     }
 
     @DELETE

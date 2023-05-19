@@ -45,11 +45,8 @@ public class OrderResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOrderById(@PathParam("id") Integer id) {
         var order = orderService.getOrderById(id);
-        return Response.status(Status.OK)
-                .entity(new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(),
-                        order.getOrderDate(),
-                        order.getStatus()))
-                .build();
+        return Response.status(Status.OK).entity(new OrderResponse(order.getId(), order.getCustomerId(),
+                order.getTotalPrice(), order.getOrderDate(), order.getStatus())).build();
     }
 
     @POST
@@ -62,11 +59,8 @@ public class OrderResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateOrder(OrderRequest orderRequest) {
         var order = orderService.updateOrder(orderRequest);
-        return Response.status(Status.OK)
-                .entity(new OrderResponse(order.getId(), order.getCustomerId(), order.getTotalPrice(),
-                        order.getOrderDate(),
-                        order.getStatus()))
-                .build();
+        return Response.status(Status.OK).entity(new OrderResponse(order.getId(), order.getCustomerId(),
+                order.getTotalPrice(), order.getOrderDate(), order.getStatus())).build();
     }
 
     @DELETE
