@@ -164,7 +164,7 @@
                         <path>
                             <groupId>io.helidon.builder</groupId>
                             <artifactId>helidon-builder-processor</artifactId>
-                            <version>4.0.0-ALPHA5</version>
+                            <version>4.0.4</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
