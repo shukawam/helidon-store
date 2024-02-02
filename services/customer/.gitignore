@@ -1,5 +1,0 @@
-target/
-ObjectStore
-PutObjectStoreDirHere
-.helidon
-application-local.yaml
