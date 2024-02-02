@@ -15,7 +15,7 @@
 
     <properties>
         <lombok.version>1.18.26</lombok.version>
-        <maven.formatter.plugin.version>2.22.0</maven.formatter.plugin.version>
+        <maven.formatter.plugin.version>2.23.0</maven.formatter.plugin.version>
     </properties>
 
     <dependencies>
