@@ -1,1 +1,0 @@
-package me.shukawam.product;
